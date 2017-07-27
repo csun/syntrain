@@ -5,10 +5,22 @@ import h5py
 import numpy as np
 from PIL import Image
 
+import constants
+
 
 if len(sys.argv) != 2:
     print('Please provide the path to the nyu dataset .mat file')
     sys.exit(1)
+
+
+def limit_labels(img):
+    def limit_element(element):
+        if element not in constants.ORIGINAL_LABEL_MAP:
+            return constants.UNKNOWN_LABEL
+        else:
+            return constants.ORIGINAL_LABEL_MAP[element]
+
+    return np.matrix([[limit_element(e) for e in row] for row in img], dtype=np.uint8)
 
 
 mat_file = h5py.File(sys.argv[1], 'r')
@@ -24,11 +36,12 @@ train_file = open(MODEL_DIR + '/train.txt', 'w+')
 test_file = open(MODEL_DIR + '/test.txt', 'w+')
 
 for i in range(IMAGE_COUNT):
+    print(i)
     # Max depth in dataset is 10m - use to normalize values to [0...255]
     normalized_depth = (mat_file['depths'][i] * 25.5).astype(np.uint8)
     stacked = np.concatenate(
             (mat_file['images'][i], np.expand_dims(normalized_depth, 0)), 0)
-    labels = mat_file['labels'][i].astype(np.uint8)
+    labels = limit_labels(mat_file['labels'][i])
 
     out_dir = TRAIN_DIR
     record_file = train_file
@@ -46,7 +59,7 @@ for i in range(IMAGE_COUNT):
 
     img = Image.fromarray(np.swapaxes(labels, 0, 1))
     img.save(label_filename)
-    
+
     record = '{0}/{1} {0}/{2}'.format(MOUNT_POINT, img_filename, label_filename)
     print(record, file=record_file)
 
