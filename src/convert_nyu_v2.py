@@ -26,9 +26,9 @@ def limit_labels(img):
 mat_file = h5py.File(sys.argv[1], 'r')
 
 MODEL_DIR = 'model/nyu_data'
-TRAIN_DIR = MODEL_DIR + '/train'
-TEST_DIR = MODEL_DIR + '/test'
-MOUNT_POINT = '/SegNet'
+TRAIN_DIR = 'train'
+TEST_DIR = 'test'
+MOUNT_POINT = '/SegNet/nyu_data'
 IMAGE_COUNT = len(mat_file['images'])
 SPLIT = math.ceil(IMAGE_COUNT * 0.8)
 
@@ -49,18 +49,23 @@ for i in range(IMAGE_COUNT):
         out_dir = TEST_DIR
         record_file = test_file
 
-    img_filename = '{}/{:05d}.png'.format(out_dir, i)
-    label_filename = '{}/{:05d}_label.png'.format(out_dir, i)
+    img_filename = '{:05d}.png'.format(i)
+    label_filename = '{:05d}_label.png'.format(i)
 
     # The dataset comes with the axes in reverse order - swap these
     # so PIL renders image correctly
     img = Image.fromarray(np.swapaxes(stacked, 0, 2))
-    img.save(img_filename)
+    # Note that we use NEAREST when downsampling instead of any other fancy
+    # methods to ensure that we maintain perfect correspondence between labels
+    # and original pixels.
+    img.thumbnail(constants.IMAGE_SIZE, Image.NEAREST)
+    img.save('{}/{}/{}'.format(MODEL_DIR, out_dir, img_filename))
 
     img = Image.fromarray(np.swapaxes(labels, 0, 1))
-    img.save(label_filename)
+    img.thumbnail(constants.IMAGE_SIZE, Image.NEAREST)
+    img.save('{}/{}/{}'.format(MODEL_DIR, out_dir, label_filename))
 
-    record = '{0}/{1} {0}/{2}'.format(MOUNT_POINT, img_filename, label_filename)
+    record = '{0}/{1}/{2} {0}/{1}/{3}'.format(MOUNT_POINT, out_dir, img_filename, label_filename)
     print(record, file=record_file)
 
 

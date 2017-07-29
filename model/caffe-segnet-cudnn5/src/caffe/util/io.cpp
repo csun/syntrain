@@ -74,7 +74,7 @@ cv::Mat ReadImageToCVMat(const string& filename,
     const int height, const int width, const bool is_color,
     const bool nearest_neighbour_interp) {
   cv::Mat cv_img;
-  int cv_read_flag = (is_color ? CV_LOAD_IMAGE_COLOR :
+  int cv_read_flag = (is_color ? CV_LOAD_IMAGE_UNCHANGED :
     CV_LOAD_IMAGE_GRAYSCALE);
   cv::Mat cv_img_origin = cv::imread(filename, cv_read_flag);
   if (!cv_img_origin.data) {

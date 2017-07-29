@@ -1,4 +1,5 @@
 venv/
+build/
 
 *.pyc
 *.o

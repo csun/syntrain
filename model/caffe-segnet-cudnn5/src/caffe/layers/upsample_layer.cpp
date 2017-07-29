@@ -120,8 +120,8 @@ void UpsampleLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
           if (idx >= height_ * width_ * scale_h_ * scale_w_) {
             // this can happen if the pooling layer that created
             // the input mask had an input with different size to top[0]
-            LOG(FATAL) << "upsample top index " << idx << " out of range - "
-              << "check scale settings match input pooling layer's downsample setup";
+            // LOG(FATAL) << "upsample top index " << idx << " out of range - "
+              // << "check scale settings match input pooling layer's downsample setup";
           }
           bottom_diff[i] = top_diff[idx];
         }
