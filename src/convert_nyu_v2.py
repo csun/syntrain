@@ -16,7 +16,7 @@ if len(sys.argv) != 2:
 def limit_labels(img):
     def limit_element(element):
         if element not in constants.ORIGINAL_LABEL_MAP:
-            return constants.UNKNOWN_LABEL
+            return constants.EMPTY_LABEL
         else:
             return constants.ORIGINAL_LABEL_MAP[element]
 

@@ -6,7 +6,7 @@ layer {
   top: "label"
   dense_image_data_param {
     source: "/SegNet/nyu_data/train.txt"	# Change this to the absolute path to your data file
-    batch_size: 8   			# Change this number to a batch size that will fit on your GPU
+    batch_size: 7   			# Change this number to a batch size that will fit on your GPU
     shuffle: true
   }
 }
@@ -1534,37 +1534,36 @@ layer {
   softmax_param {engine: CAFFE}
   loss_param: {
     weight_by_label_freqs: true
-    ignore_label: 30
-    class_weighting: 0.1452
-    class_weighting: 0.3233
-    class_weighting: 0.9094
-    class_weighting: 0.2259
-    class_weighting: 0.5262
-    class_weighting: 0.6576
-    class_weighting: 0.4696
-    class_weighting: 0.3882
-    class_weighting: 1.0507
-    class_weighting: 3.7373
-    class_weighting: 0.6369
-    class_weighting: 2.0634
-    class_weighting: 2.3932
-    class_weighting: 2.9478
-    class_weighting: 3.1302
-    class_weighting: 0.4795
-    class_weighting: 0.1987
-    class_weighting: 0.2851
-    class_weighting: 3.1155
-    class_weighting: 0.9807
-    class_weighting: 0.3585
-    class_weighting: 0.5445
-    class_weighting: 0.7178
-    class_weighting: 0.2326
-    class_weighting: 4.0718
-    class_weighting: 0.3942
-    class_weighting: 4.2424
-    class_weighting: 1.6322
-    class_weighting: 0.7790
-    class_weighting: 0.2076
+    ignore_label: 29
+    class_weighting: 0.1381
+    class_weighting: 0.3076
+    class_weighting: 0.8652
+    class_weighting: 0.2150
+    class_weighting: 0.5007
+    class_weighting: 0.6256
+    class_weighting: 0.4468
+    class_weighting: 0.3694
+    class_weighting: 0.9997
+    class_weighting: 3.5557
+    class_weighting: 0.6059
+    class_weighting: 1.9632
+    class_weighting: 2.2770
+    class_weighting: 2.8046
+    class_weighting: 2.9781
+    class_weighting: 0.4562
+    class_weighting: 0.1891
+    class_weighting: 0.2712
+    class_weighting: 2.9641
+    class_weighting: 0.9331
+    class_weighting: 0.3411
+    class_weighting: 0.5181
+    class_weighting: 0.6830
+    class_weighting: 0.2213
+    class_weighting: 3.8740
+    class_weighting: 0.3751
+    class_weighting: 4.0363
+    class_weighting: 1.5529
+    class_weighting: 0.7411
   }
 }
 layer {
