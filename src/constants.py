@@ -1,13 +1,10 @@
-ORIGINAL_LABEL_MAP = {0: 29, 21: 0, 11: 1, 64: 2, 3: 3, 5: 4, 19: 5, 59: 6,
-    28: 7, 119: 8, 2: 9, 4: 10, 15: 11, 26: 12, 144: 13, 55: 14, 7: 15,
-    157: 16, 83: 17, 1: 18, 85: 19, 80: 20, 42: 21, 141: 22, 88: 23, 35: 24,
-    36: 25, 62: 26, 24: 27, 143: 28}
+EMPTY_LABEL = 16
+ORIGINAL_LABEL_MAP = {0: EMPTY_LABEL, 21: 0, 11: 1, 64: 2, 3: 3, 5: 4, 19: 5, 59: 6,
+    28: 7, 119: 8, 4: 9, 144: 10, 7: 11, 157: 12, 83: 13, 36: 14, 24: 15}
 
 LABEL_NAMES = ['wall', 'floor', 'picture', 'cabinet', 'chair', 'table',
-    'window', 'door', 'pillow', 'bottle', 'ceiling', 'paper', 'box', 'lamp',
-    'bag', 'counter', 'bed', 'sofa', 'book', 'books', 'blinds', 'shelves',
-    'clothes', 'bookshelf', 'cup', 'desk', 'light', 'sink', 'floor mat', None]
-EMPTY_LABEL = 29
+    'window', 'door', 'pillow', 'ceiling', 'lamp', 'counter', 'bed', 'sofa',
+    'desk', 'sink', None]
 
 
 IMAGE_SIZE = (480, 360)

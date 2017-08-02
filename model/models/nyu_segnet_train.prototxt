@@ -1520,7 +1520,7 @@ layer {
     bias_filler {
       type: "constant"
     }
-    num_output: 29
+    num_output: 16
     pad: 1
     kernel_size: 3
   }
@@ -1534,36 +1534,23 @@ layer {
   softmax_param {engine: CAFFE}
   loss_param: {
     weight_by_label_freqs: true
-    ignore_label: 29
-    class_weighting: 0.1381
-    class_weighting: 0.3076
-    class_weighting: 0.8652
-    class_weighting: 0.2150
-    class_weighting: 0.5007
-    class_weighting: 0.6256
-    class_weighting: 0.4468
-    class_weighting: 0.3694
-    class_weighting: 0.9997
-    class_weighting: 3.5557
-    class_weighting: 0.6059
-    class_weighting: 1.9632
-    class_weighting: 2.2770
-    class_weighting: 2.8046
-    class_weighting: 2.9781
-    class_weighting: 0.4562
-    class_weighting: 0.1891
-    class_weighting: 0.2712
-    class_weighting: 2.9641
-    class_weighting: 0.9331
-    class_weighting: 0.3411
-    class_weighting: 0.5181
-    class_weighting: 0.6830
-    class_weighting: 0.2213
-    class_weighting: 3.8740
-    class_weighting: 0.3751
-    class_weighting: 4.0363
-    class_weighting: 1.5529
-    class_weighting: 0.7411
+    ignore_label: 16
+	class_weighting: 0.1897
+    class_weighting: 0.3977
+    class_weighting: 1.1903
+    class_weighting: 0.3131
+    class_weighting: 0.5648
+    class_weighting: 0.7420
+    class_weighting: 0.5831
+    class_weighting: 0.5133
+    class_weighting: 1.3688
+    class_weighting: 0.7981
+    class_weighting: 3.8297
+    class_weighting: 0.6392
+    class_weighting: 0.2490
+    class_weighting: 0.3251
+    class_weighting: 0.4986
+    class_weighting: 2.0350
   }
 }
 layer {

@@ -1,5 +1,6 @@
 import math
 import sys
+from random import shuffle
 
 import h5py
 import numpy as np
@@ -35,13 +36,19 @@ SPLIT = math.ceil(IMAGE_COUNT * 0.8)
 train_file = open(MODEL_DIR + '/train.txt', 'w+')
 test_file = open(MODEL_DIR + '/test.txt', 'w+')
 
+shuffled_indices = [x for x in range(IMAGE_COUNT)]
+shuffle(shuffled_indices)
+
 for i in range(IMAGE_COUNT):
     print(i)
     # Max depth in dataset is 10m - use to normalize values to [0...255]
-    normalized_depth = (mat_file['depths'][i] * 25.5).astype(np.uint8)
-    stacked = np.concatenate(
-            (mat_file['images'][i], np.expand_dims(normalized_depth, 0)), 0)
-    labels = limit_labels(mat_file['labels'][i])
+    # normalized_depth = (mat_file['depths'][i] * 25.5).astype(np.uint8)
+    # stacked = np.concatenate(
+    #         (mat_file['images'][i], np.expand_dims(normalized_depth, 0)), 0)
+
+    shuffled_index = shuffled_indices[i]
+    stacked = mat_file['images'][shuffled_index]
+    labels = limit_labels(mat_file['labels'][shuffled_index])
 
     out_dir = TRAIN_DIR
     record_file = train_file
