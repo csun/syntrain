@@ -1,4 +1,5 @@
 import math
+import os
 import sys
 from random import shuffle
 
@@ -26,10 +27,9 @@ def limit_labels(img):
 
 mat_file = h5py.File(sys.argv[1], 'r')
 
-MODEL_DIR = 'model/nyu_data'
-TRAIN_DIR = 'train'
-TEST_DIR = 'test'
-MOUNT_POINT = '/SegNet/nyu_data'
+DATA_DIR_NAME = 'nyu_data'
+MODEL_DIR = os.path.join(constants.LOCAL_MODEL_DIR, DATA_DIR_NAME)
+MOUNT_POINT = os.path.join(constants.MOUNTED_MODEL_DIR, DATA_DIR_NAME)
 IMAGE_COUNT = len(mat_file['images'])
 SPLIT = math.ceil(IMAGE_COUNT * 0.8)
 
@@ -50,10 +50,10 @@ for i in range(IMAGE_COUNT):
     stacked = mat_file['images'][shuffled_index]
     labels = limit_labels(mat_file['labels'][shuffled_index])
 
-    out_dir = TRAIN_DIR
+    out_dir = constants.TRAIN_DIR
     record_file = train_file
     if i > SPLIT:
-        out_dir = TEST_DIR
+        out_dir = constants.TEST_DIR
         record_file = test_file
 
     img_filename = '{:05d}.png'.format(i)

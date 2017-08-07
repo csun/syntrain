@@ -1,53 +1,52 @@
 #!/usr/bin/env python
-import numpy as np
 import os
 import sys
 import argparse
 import glob
 import time
 
+import numpy as np
+from PIL import Image
+
 import caffe
+
+def score_prediction(target, prediction):
+    non_empty_mask = (target != constants.EMPTY_LABEL)
+    non_empty_count = np.count_nonzero(non_empty_mask)
+    # Because we will never predict an empty label, automatically forces all
+    # target empty pixels to be false (desired behavior)
+    correct_mask = (prediction - target == 0)
+
+    global_accuracy_total += np.count_nonzero(correct_mask) / non_empty_count
+
+    for i in range(len(label_accuracy_totals)):
+        target_positives = (target == i)
+        predicted_negatives = np.logical_and((prediction != i), non_empty_mask)
+
+        true_positives = np.count_nonzero(
+                np.logical_and(target_positives, correct_mask))
+        true_negatives = np.count_nonzero(
+                np.logical_and(predicted_negatives, np.logical_not(target_positives))
+        label_accuracy_totals[i] += (true_positives + true_negatives) / non_empty_count
 
 
 def main(argv):
-    pycaffe_dir = # TODO compute this from constants.py and set convert_nyu... to use
-
     parser = argparse.ArgumentParser()
     # Required arguments: input and output files.
     parser.add_argument(
-        "output_file",
-        help="Output npy filename."
-    )
+        "model_def",
+        help="Model definition file (prototxt).")
+    parser.add_argument(
+        "pretrained_model",
+        help="Trained model weights file (caffemodel).")
+
     # Optional arguments.
-    parser.add_argument(
-        "--model_def",
-        default=os.path.join(pycaffe_dir,
-                "../models/bvlc_reference_caffenet/deploy.prototxt"),
-        help="Model definition file."
-    )
-    parser.add_argument(
-        "--pretrained_model",
-        default=os.path.join(pycaffe_dir,
-                "../models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel"),
-        help="Trained model weights file."
-    )
     parser.add_argument(
         "--gpu",
         action='store_true',
-        help="Switch for gpu computation."
-    )
-    # TODO do we need this?
-    parser.add_argument(
-        "--channel_swap",
-        default='2,1,0',
-        help="Order to permute input channels. The default converts " +
-             "RGB -> BGR since BGR is the Caffe default by way of OpenCV."
-    )
+        help="Switch for gpu computation.")
     args = parser.parse_args()
 
-    image_dims = # TODO set this to constants.IMAGE_SIZE
-
-    # TODO keep this configurable
     if args.gpu:
         caffe.set_mode_gpu()
         print("GPU mode")
@@ -56,21 +55,28 @@ def main(argv):
         print("CPU mode")
 
     # Make classifier.
-    classifier = caffe.Classifier(args.model_def, args.pretrained_model,
-            image_dims=image_dims, input_scale=args.input_scale, raw_scale=args.raw_scale)
+    net = caffe.Net(args.model_def, args.pretrained_model, caffe.TEST)
 
-    inputs = # TODO Using test.txt, create a list of loaded input images
-    print("Classifying %d inputs." % len(inputs))
+    global_accuracy_total = 0
+    label_accuracy_totals = [0] * len(constants.LABEL_NAMES)
+    # TODO figure out how to just iterate until end
+    for i in range(1):
+        net.forward()
 
-    # Classify.
-    start = time.time()
-    predictions = classifier.predict(inputs, False)
-    print("Done in %.2f s." % (time.time() - start))
+        predicted = net.blobs['prob'].data
+	output = np.squeeze(predicted[0,:,:,:])
+        # TODO I think that this is what we want (the labels). Give it a better name..
+        # TODO test these things one by one in cpu mode and just print shapes
+        # at first to see if working.
+	ind = np.argmax(output, axis=0)
 
-    # TODO load all target images
-    # TODO subtract targets from predictions and count num of zeroes for global accuracy
-    # TODO compute class accuracy similarly?
-    # TODO read paper to make sure that this is how those are actually computed.
+    # TODO need to use syntax from other script, not classifier.predict
+    # (https://github.com/alexgkendall/SegNet-Tutorial/blob/master/Scripts/test_segmentation_camvid.py)
+    # TODO need to write an X_inference.prototxt
+
+    # TODO at end, print all class accuracies with their human-readable names
+    # TODO print the avg. class accuracy
+    # TODO print the global accuracy
 
 
 if __name__ == '__main__':
