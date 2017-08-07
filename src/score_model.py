@@ -26,7 +26,7 @@ def score_prediction(target, prediction):
         true_positives = np.count_nonzero(
                 np.logical_and(target_positives, correct_mask))
         true_negatives = np.count_nonzero(
-                np.logical_and(predicted_negatives, np.logical_not(target_positives))
+                np.logical_and(predicted_negatives, np.logical_not(target_positives)))
         label_accuracy_totals[i] += (true_positives + true_negatives) / non_empty_count
 
 
@@ -64,11 +64,13 @@ def main(argv):
         net.forward()
 
         predicted = net.blobs['prob'].data
-	output = np.squeeze(predicted[0,:,:,:])
+        output = np.squeeze(predicted[0,:,:,:])
         # TODO I think that this is what we want (the labels). Give it a better name..
         # TODO test these things one by one in cpu mode and just print shapes
         # at first to see if working.
-	ind = np.argmax(output, axis=0)
+        ind = np.argmax(output, axis=0)
+
+        print(output.shape)
 
     # TODO need to use syntax from other script, not classifier.predict
     # (https://github.com/alexgkendall/SegNet-Tutorial/blob/master/Scripts/test_segmentation_camvid.py)

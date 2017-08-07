@@ -1544,7 +1544,7 @@ layer {
     bias_filler {
       type: "constant"
     }
-    num_output: 11
+    num_output: 16
     pad: 1
     kernel_size: 3
   }
