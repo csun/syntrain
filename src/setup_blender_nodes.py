@@ -40,40 +40,15 @@ for output in input_node.outputs:
         indexob_output = output
         break
 
-chain_outputs = []
-for i in range(len(constants.LABEL_NAMES) + 1):
-    y_location = -200 * i
-
-    mask_node = tree.nodes.new(type='CompositorNodeIDMask')
-    mask_node.index = i
-    mask_node.location = (200, y_location)
-    links.new(indexob_output, mask_node.inputs[0])
-
-    multiply_node = tree.nodes.new(type='CompositorNodeMath')
-    multiply_node.operation = 'MULTIPLY'
-    multiply_node.location = (400, y_location)
-    # inputs scaled from 0 to 1, but we want to specify in terms of 0 to 255
-    multiply_node.inputs[0].default_value = math.ceil(i / 0.255) / 1000
-    links.new(mask_node.outputs[0], multiply_node.inputs[1])
-
-    chain_outputs.append(multiply_node.outputs[0])
-
-adders = []
-adders.append(tree.nodes.new(type='CompositorNodeMath'))
-adders[0].operation = 'ADD'
-adders[0].location = (600, 0)
-links.new(chain_outputs[0], adders[0].inputs[0])
-links.new(chain_outputs[1], adders[0].inputs[1])
-
-for i in range(2, len(chain_outputs)):
-    adders.append(tree.nodes.new(type='CompositorNodeMath'))
-    adders[-1].operation = 'ADD'
-    adders[-1].location = (600, -200 * (i - 1))
-    links.new(adders[-2].outputs[0], adders[-1].inputs[0])
-    links.new(chain_outputs[i], adders[-1].inputs[1])
+divide_node = tree.nodes.new(type='CompositorNodeMath')
+divide_node.operation = 'DIVIDE'
+divide_node.location = (200, 0)
+# inputs scaled from 0 to 1, but we want to specify in terms of 0 to 255
+divide_node.inputs[0].default_value = 255
+links.new(indexob_output, divide_node.inputs[1])
 
 output_node = tree.nodes.new(type='CompositorNodeOutputFile')
-output_node.location = (800, 0)
+output_node.location = (400, 0)
 output_node.base_path = OUTPUT_PATH
 output_node.format.color_mode = 'RGB'
 output_node.file_slots[0].path = IMAGE_PREFIX
@@ -84,7 +59,7 @@ output_node.file_slots[1].path = LABEL_PREFIX
 output_node.file_slots[1].format.color_mode = 'BW'
 
 links.new(input_node.outputs[0], output_node.inputs[0])
-links.new(adders[-1].outputs[0], output_node.inputs[1])
+links.new(divide_node.outputs[0], output_node.inputs[1])
 
 
 # === SET PASS INDEX ===
