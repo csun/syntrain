@@ -44,8 +44,8 @@ divide_node = tree.nodes.new(type='CompositorNodeMath')
 divide_node.operation = 'DIVIDE'
 divide_node.location = (200, 0)
 # inputs scaled from 0 to 1, but we want to specify in terms of 0 to 255
-divide_node.inputs[0].default_value = 255
-links.new(indexob_output, divide_node.inputs[1])
+links.new(indexob_output, divide_node.inputs[0])
+divide_node.inputs[1].default_value = 255
 
 output_node = tree.nodes.new(type='CompositorNodeOutputFile')
 output_node.location = (400, 0)
