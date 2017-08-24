@@ -1,0 +1,16 @@
+/SegNet/syn_data/images/bathroom_1_image_0113.png /SegNet/syn_data/images/bathroom_1_label_0113.png
+/SegNet/syn_data/images/bedroom_1_image_0001.png /SegNet/syn_data/images/bedroom_1_label_0001.png
+/SegNet/syn_data/images/bedroom_1_image_0002.png /SegNet/syn_data/images/bedroom_1_label_0002.png
+/SegNet/syn_data/images/bedroom_1_image_0003.png /SegNet/syn_data/images/bedroom_1_label_0003.png
+/SegNet/syn_data/images/bedroom_1_image_0004.png /SegNet/syn_data/images/bedroom_1_label_0004.png
+/SegNet/syn_data/images/bedroom_2_image_0001.png /SegNet/syn_data/images/bedroom_2_label_0001.png
+/SegNet/syn_data/images/bedroom_2_image_0002.png /SegNet/syn_data/images/bedroom_2_label_0002.png
+/SegNet/syn_data/images/bedroom_2_image_0003.png /SegNet/syn_data/images/bedroom_2_label_0003.png
+/SegNet/syn_data/images/bedroom_2_image_0004.png /SegNet/syn_data/images/bedroom_2_label_0004.png
+/SegNet/syn_data/images/kitchen_1_image_0001.png /SegNet/syn_data/images/kitchen_1_label_0001.png
+/SegNet/syn_data/images/kitchen_1_image_0002.png /SegNet/syn_data/images/kitchen_1_label_0002.png
+/SegNet/syn_data/images/kitchen_1_image_0003.png /SegNet/syn_data/images/kitchen_1_label_0003.png
+/SegNet/syn_data/images/office_1_image_0001.png /SegNet/syn_data/images/office_1_label_0001.png
+/SegNet/syn_data/images/office_1_image_0002.png /SegNet/syn_data/images/office_1_label_0002.png
+/SegNet/syn_data/images/office_1_image_0003.png /SegNet/syn_data/images/office_1_label_0003.png
+/SegNet/syn_data/images/office_1_image_0004.png /SegNet/syn_data/images/office_1_label_0004.png
