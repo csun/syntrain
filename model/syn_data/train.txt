@@ -1159,7 +1159,7 @@
 /SegNet/nyu_data/train/01158.png /SegNet/nyu_data/train/01158_label.png
 /SegNet/nyu_data/train/01159.png /SegNet/nyu_data/train/01159_label.png
 /SegNet/nyu_data/train/01160.png /SegNet/nyu_data/train/01160_label.png
-/SegNet/syn_data/images/bathroom_1_image_0113.png /SegNet/syn_data/images/bathroom_1_label_0113.png
+/SegNet/syn_data/images/bathroom_1_image_0113.jpg /SegNet/syn_data/images/bathroom_1_label_0113.png
 /SegNet/syn_data/images/bedroom_1_image_0001.png /SegNet/syn_data/images/bedroom_1_label_0001.png
 /SegNet/syn_data/images/bedroom_1_image_0002.png /SegNet/syn_data/images/bedroom_1_label_0002.png
 /SegNet/syn_data/images/bedroom_1_image_0003.png /SegNet/syn_data/images/bedroom_1_label_0003.png
