@@ -20,3 +20,10 @@ If you just want to see some synthetic examples I've already generated, look in 
 4. Open `src/setup_blender_nodes.py` in your script editor. This will set up the compositor nodes to output the labels and images from your scene to a folder named `render/` in the same directory as your .blend file. If you make changes to labels after running this script, you need to delete these created compositor nodes and run it again. Again, not ideal, but it doesn't take that long.
 5. Render your scene and check the `render/` folder for output.
 6. Note that if you plan on using these images to train this model, you'll need to update the relevant `train.txt` file and recalculate the class weights using `python3 src/calculate_class_weighting.py`.
+
+# Blender Scene Credits
+https://www.blendswap.com/blends/view/88906
+https://www.blendswap.com/blends/view/72366
+https://www.blendswap.com/blends/view/17385
+https://www.blendswap.com/blends/view/85400
+https://www.blendswap.com/blends/view/42851
